@@ -28,7 +28,7 @@ def load_checkpoint(ckpt, net, device):
 
     gpu_state_dict = OrderedDict()
     for k, v in checkpoint['network'] .items():
-        name = "module." + k  # add `module.` prefix
+        name = k  # add `module.` prefix
         gpu_state_dict[name] = v.to(device)
     net.load_state_dict(gpu_state_dict)
     return net
@@ -80,6 +80,7 @@ def test():
 
 
 if __name__ == "__main__":
+    torch.backends.cudnn.enabled = False
     test()
 
 # vim: ts=4 sw=4 sts=4 expandtab
